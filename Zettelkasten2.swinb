@@ -1,0 +1,468 @@
+<div class="notebook">
+
+<div class="nb-cell program" data-background="true" name="p1">
+% ======================================================
+% ZETTELKASTEN / OBSIDIAN. MODELO DECLARATIVO EN PROLOG
+% ======================================================
+% Filosofía:
+% Cada hecho se lee como una oración en español.
+% No usamos PKs/FKs artificiales.
+% La unificación de Prolog reemplaza los JOINs.
+% Los backlinks no se guardan: se infieren invirtiendo los links.
+% ======================================================
+</div>
+
+<div class="nb-cell program" data-background="true" name="p2">
+:- use_module(library(lists)).
+:- use_module(library(aggregate)).
+</div>
+
+<div class="nb-cell program" data-background="true" name="p3">
+% ------------------------------------------------------
+% 1. USUARIOS / AUTORES
+% ------------------------------------------------------
+% "Ana Torres es una estudiante."
+usuario('Ana Torres', 'ana@zettel.edu', estudiante).
+usuario('Bruno Ruiz', 'bruno@zettel.edu', estudiante).
+usuario('Dra. Laura Méndez', 'laura@zettel.edu', profesora).
+usuario('Carlos Vega', 'carlos@zettel.edu', estudiante).
+</div>
+
+<div class="nb-cell program" data-background="true" name="p4">
+% ------------------------------------------------------
+% 2. MATERIAS Y TEMAS
+% ------------------------------------------------------
+% "Bases de Datos NoSQL es una materia."
+materia('Bases de Datos NoSQL', 'Modelos relacionales, documentales, grafos y columnares').
+materia('Inteligencia Artificial', 'Representación del conocimiento y aprendizaje automático').
+materia('Ingeniería de Software', 'Diseño, documentación y mantenimiento de sistemas').
+
+% "Modelos Documentales es un tema de Bases de Datos NoSQL."
+tema('Modelos Relacionales', 'Normalización, llaves y consultas SQL').
+tema('Modelos Documentales', 'Documentos JSON, anidamiento y consultas flexibles').
+tema('Modelos de Grafos', 'Nodos, relaciones, caminos y backlinks').
+tema('Modelos Columnares', 'Agregaciones, analítica y dashboards').
+tema('Zettelkasten', 'Sistema de notas conectadas por relaciones semánticas').
+tema('Representación del Conocimiento', 'Hechos, reglas e inferencia lógica').
+tema('Comparación de Modelos','Comparación entre modelos relacionales, documentales, grafos y columnares').
+
+es_parte_de('Comparación de Modelos', 'Bases de Datos NoSQL').
+es_parte_de('Modelos Relacionales', 'Bases de Datos NoSQL').
+es_parte_de('Modelos Documentales', 'Bases de Datos NoSQL').
+es_parte_de('Modelos de Grafos', 'Bases de Datos NoSQL').
+es_parte_de('Modelos Columnares', 'Bases de Datos NoSQL').
+es_parte_de('Zettelkasten', 'Ingeniería de Software').
+es_parte_de('Representación del Conocimiento', 'Inteligencia Artificial').
+</div>
+
+<div class="nb-cell program" data-background="true" name="p5">
+% ------------------------------------------------------
+% 3. NOTAS
+% ------------------------------------------------------
+% "Modelo relacional normalizado es una nota conceptual publicada."
+nota('Modelo relacional normalizado',
+     'modelo-relacional-normalizado',
+     conceptual,
+     publicada,
+     '2024-02-10').
+
+nota('Documentos anidados en MongoDB',
+     'mongo-documentos-anidados',
+     tecnica,
+     publicada,
+     '2024-06-18').
+
+nota('Backlinks estilo Obsidian',
+     'consulta-backlinks-obsidian',
+     conceptual,
+     publicada,
+     '2024-09-03').
+
+nota('Grafo de conocimiento en Neo4j',
+     'grafo-conocimiento-neo4j',
+     tecnica,
+     publicada,
+     '2025-01-22').
+
+nota('Agregaciones analíticas en ClickHouse',
+     'agregaciones-clickhouse',
+     tecnica,
+     publicada,
+     '2025-05-11').
+
+nota('Dashboard en Metabase',
+     'dashboard-metabase-clickhouse',
+     practica,
+     borrador,
+     '2025-11-05').
+
+nota('Comparación de modelos de datos',
+     'comparacion-modelos-datos',
+     resumen,
+     publicada,
+     '2026-02-14').
+
+nota('Prolog como analogía declarativa',
+     'prolog-analogia-declarativa',
+     conceptual,
+     publicada,
+     '2026-04-20').
+</div>
+
+<div class="nb-cell program" data-background="true" name="p6">
+% ------------------------------------------------------
+% 4. AUTORÍA Y CLASIFICACIÓN
+% ------------------------------------------------------
+% "Ana Torres creó la nota Documentos anidados en MongoDB."
+creo('Bruno Ruiz', 'modelo-relacional-normalizado').
+creo('Bruno Ruiz', 'mongo-documentos-anidados').
+creo('Ana Torres', 'consulta-backlinks-obsidian').
+creo('Carlos Vega', 'grafo-conocimiento-neo4j').
+creo('Bruno Ruiz', 'agregaciones-clickhouse').
+creo('Ana Torres', 'dashboard-metabase-clickhouse').
+creo('Dra. Laura Méndez', 'comparacion-modelos-datos').
+creo('Bruno Ruiz', 'prolog-analogia-declarativa').
+
+% "La nota pertenece al tema Modelos Documentales."
+pertenece_a('modelo-relacional-normalizado', 'Modelos Relacionales').
+pertenece_a('mongo-documentos-anidados', 'Modelos Documentales').
+pertenece_a('consulta-backlinks-obsidian', 'Zettelkasten').
+pertenece_a('grafo-conocimiento-neo4j', 'Modelos de Grafos').
+pertenece_a('agregaciones-clickhouse', 'Modelos Columnares').
+pertenece_a('dashboard-metabase-clickhouse', 'Modelos Columnares').
+pertenece_a('comparacion-modelos-datos', 'Comparación de Modelos').
+pertenece_a('prolog-analogia-declarativa', 'Representación del Conocimiento').
+</div>
+
+<div class="nb-cell program" data-background="true" name="p7">
+% ------------------------------------------------------
+% 5. TAGS
+% ------------------------------------------------------
+tag('sql', 'Consultas relacionales').
+tag('mongodb', 'Base de datos documental').
+tag('neo4j', 'Base de datos de grafos').
+tag('clickhouse', 'Base de datos columnar').
+tag('metabase', 'Dashboard y visualización').
+tag('backlinks', 'Links entrantes inferidos').
+tag('zettelkasten', 'Sistema de notas conectadas').
+tag('prolog', 'Lenguaje lógico declarativo').
+tag('comparacion', 'Comparación entre modelos').
+
+% "La nota tiene el tag mongodb."
+tiene_tag('modelo-relacional-normalizado', 'sql').
+tiene_tag('modelo-relacional-normalizado', 'comparacion').
+
+tiene_tag('mongo-documentos-anidados', 'mongodb').
+tiene_tag('mongo-documentos-anidados', 'zettelkasten').
+
+tiene_tag('consulta-backlinks-obsidian', 'backlinks').
+tiene_tag('consulta-backlinks-obsidian', 'zettelkasten').
+tiene_tag('consulta-backlinks-obsidian', 'neo4j').
+
+tiene_tag('grafo-conocimiento-neo4j', 'neo4j').
+tiene_tag('grafo-conocimiento-neo4j', 'backlinks').
+
+tiene_tag('agregaciones-clickhouse', 'clickhouse').
+tiene_tag('agregaciones-clickhouse', 'comparacion').
+
+tiene_tag('dashboard-metabase-clickhouse', 'metabase').
+tiene_tag('dashboard-metabase-clickhouse', 'clickhouse').
+
+tiene_tag('comparacion-modelos-datos', 'sql').
+tiene_tag('comparacion-modelos-datos', 'mongodb').
+tiene_tag('comparacion-modelos-datos', 'neo4j').
+tiene_tag('comparacion-modelos-datos', 'clickhouse').
+tiene_tag('comparacion-modelos-datos', 'comparacion').
+
+tiene_tag('prolog-analogia-declarativa', 'prolog').
+tiene_tag('prolog-analogia-declarativa', 'comparacion').
+</div>
+
+<div class="nb-cell program" data-background="true" name="p8">
+% ------------------------------------------------------
+% 6. FUENTES
+% ------------------------------------------------------
+fuente('Documentación PostgreSQL', documentacion, 'PostgreSQL Global Development Group', 2025).
+fuente('Documentación MongoDB', documentacion, 'MongoDB Inc.', 2025).
+fuente('Documentación Neo4j', documentacion, 'Neo4j', 2025).
+fuente('Documentación ClickHouse', documentacion, 'ClickHouse Inc.', 2025).
+fuente('Documentación SWI-Prolog', documentacion, 'SWI-Prolog', 2025).
+fuente('How to Take Smart Notes', libro, 'Sönke Ahrens', 2017).
+
+% "La nota usa una fuente."
+usa_fuente('modelo-relacional-normalizado',
+           'Documentación PostgreSQL',
+           'Integridad referencial y JOINs',
+           'capitulo-sql').
+
+usa_fuente('mongo-documentos-anidados',
+           'Documentación MongoDB',
+           'Documentos JSON y estructuras anidadas',
+           'manual-documents').
+
+usa_fuente('grafo-conocimiento-neo4j',
+           'Documentación Neo4j',
+           'Nodos, relaciones y caminos',
+           'cypher-paths').
+
+usa_fuente('agregaciones-clickhouse',
+           'Documentación ClickHouse',
+           'Agregaciones columnares',
+           'aggregate-functions').
+
+usa_fuente('prolog-analogia-declarativa',
+           'Documentación SWI-Prolog',
+           'Hechos, reglas y consultas',
+           'logic-programming').
+
+usa_fuente('consulta-backlinks-obsidian',
+           'How to Take Smart Notes',
+           'Conexión entre ideas y notas permanentes',
+           'zettelkasten').
+</div>
+
+<div class="nb-cell program" data-background="true" name="p9">
+% ------------------------------------------------------
+% 7. LINKS ENTRE NOTAS
+% ------------------------------------------------------
+% "La nota A enlaza a la nota B con tipo referencia."
+% Este hecho representa links salientes.
+% Los backlinks se calcularán invirtiendo esta relación.
+
+enlaza('mongo-documentos-anidados',
+       'modelo-relacional-normalizado',
+       referencia,
+       'MongoDB se compara contra el modelo normalizado SQL',
+       0.80).
+
+enlaza('consulta-backlinks-obsidian',
+       'mongo-documentos-anidados',
+       expande,
+       'Los backlinks se pueden guardar dentro del documento de nota',
+       0.90).
+
+enlaza('grafo-conocimiento-neo4j',
+       'consulta-backlinks-obsidian',
+       ejemplo_de,
+       'Neo4j permite consultar backlinks como relaciones entrantes',
+       0.95).
+
+enlaza('agregaciones-clickhouse',
+       'consulta-backlinks-obsidian',
+       referencia,
+       'ClickHouse resume métricas de backlinks por nota',
+       0.78).
+
+enlaza('dashboard-metabase-clickhouse',
+       'agregaciones-clickhouse',
+       prerrequisito_de,
+       'El dashboard depende de tablas analíticas en ClickHouse',
+       0.88).
+
+enlaza('comparacion-modelos-datos',
+       'modelo-relacional-normalizado',
+       referencia,
+       'PostgreSQL es el modelo base de comparación',
+       0.85).
+
+enlaza('comparacion-modelos-datos',
+       'mongo-documentos-anidados',
+       referencia,
+       'MongoDB representa el modelo documental',
+       0.85).
+
+enlaza('comparacion-modelos-datos',
+       'grafo-conocimiento-neo4j',
+       referencia,
+       'Neo4j representa el modelo de grafos',
+       0.85).
+
+enlaza('comparacion-modelos-datos',
+       'agregaciones-clickhouse',
+       referencia,
+       'ClickHouse representa el modelo columnar',
+       0.85).
+
+enlaza('prolog-analogia-declarativa',
+       'comparacion-modelos-datos',
+       inspirado_en,
+       'Prolog permite comparar el dominio desde lógica declarativa',
+       0.92).
+
+enlaza('prolog-analogia-declarativa',
+       'consulta-backlinks-obsidian',
+       relacionado,
+       'Un backlink puede inferirse como una regla lógica',
+       0.96).
+</div>
+
+<div class="nb-cell program" name="p10">
+% ------------------------------------------------------
+% 8. VERSIONES Y EVENTOS
+% ------------------------------------------------------
+version('mongo-documentos-anidados', 1, '2024-06-18', 'Creación inicial').
+version('mongo-documentos-anidados', 2, '2024-07-02', 'Se agregaron backlinks anidados').
+
+version('grafo-conocimiento-neo4j', 1, '2025-01-22', 'Creación inicial').
+version('grafo-conocimiento-neo4j', 2, '2025-02-10', 'Se agregaron consultas de caminos').
+
+version('dashboard-metabase-clickhouse', 1, '2025-11-05', 'Borrador del dashboard').
+version('dashboard-metabase-clickhouse', 2, '2026-01-12', 'Se agregaron tarjetas de actividad diaria').
+
+% "Un usuario consultó/editó/creó una nota."
+evento('mongo-documentos-anidados', creada, '2024-06-18', 'Bruno Ruiz').
+evento('mongo-documentos-anidados', editada, '2024-07-02', 'Bruno Ruiz').
+evento('consulta-backlinks-obsidian', consultada, '2024-09-10', 'Ana Torres').
+evento('grafo-conocimiento-neo4j', creada, '2025-01-22', 'Carlos Vega').
+evento('grafo-conocimiento-neo4j', consultada, '2025-02-15', 'Bruno Ruiz').
+evento('dashboard-metabase-clickhouse', creada, '2025-11-05', 'Ana Torres').
+evento('dashboard-metabase-clickhouse', editada, '2026-01-12', 'Ana Torres').
+evento('prolog-analogia-declarativa', creada, '2026-04-20', 'Bruno Ruiz').
+</div>
+
+<div class="nb-cell program" data-background="true" name="p11">
+% ======================================================
+% 9. REGLAS PARA CONSULTAS DEL SISTEMA ZETTELKASTEN
+% ======================================================
+
+% Obtener el título de una nota a partir de su slug.
+titulo_de(Slug, Titulo) :-
+    nota(Titulo, Slug, _, _, _).
+
+% ------------------------------------------------------
+% Consulta 1:
+% ¿Qué notas pertenecen a una materia?
+% Analogía: JOIN entre nota, tema y materia.
+% ------------------------------------------------------
+notas_de_materia(Materia, Slug, Titulo, Tema) :-
+    nota(Titulo, Slug, _, _, _),
+    pertenece_a(Slug, Tema),
+    es_parte_de(Tema, Materia).
+
+% ------------------------------------------------------
+% Consulta 2:
+% ¿Quién creó cada nota?
+% Analogía: JOIN entre nota y usuario.
+% ------------------------------------------------------
+autor_de_nota(Slug, Titulo, Autor, Rol) :-
+    nota(Titulo, Slug, _, _, _),
+    creo(Autor, Slug),
+    usuario(Autor, _, Rol).
+
+% ------------------------------------------------------
+% Consulta 3:
+% ¿Qué notas tienen cierto tag?
+% Analogía: nota_tag en PostgreSQL.
+% ------------------------------------------------------
+notas_con_tag(Tag, Slug, Titulo) :-
+    tiene_tag(Slug, Tag),
+    titulo_de(Slug, Titulo).
+
+% ------------------------------------------------------
+% Consulta 4:
+% ¿Cuáles son los links salientes de una nota?
+% Analogía: links tipo Obsidian.
+% ------------------------------------------------------
+links_salientes_de(SlugOrigen, TituloDestino, TipoLink, Contexto) :-
+    enlaza(SlugOrigen, SlugDestino, TipoLink, Contexto, _),
+    titulo_de(SlugDestino, TituloDestino).
+
+% ------------------------------------------------------
+% Consulta 5:
+% ¿Cuáles son los backlinks de una nota?
+% Importante: el backlink no se guarda, se infiere invirtiendo enlaza/5.
+% ------------------------------------------------------
+backlinks_de(SlugActual, TituloOrigen, TipoLink, Contexto) :-
+    enlaza(SlugOrigen, SlugActual, TipoLink, Contexto, _),
+    titulo_de(SlugOrigen, TituloOrigen).
+%Autores con tag
+
+% ¿Qué autores tienen notas con cierto tag?
+autores_con_tag(Tag, Autor, Rol, Slug, Titulo) :-
+    notas_con_tag(Tag, Slug, Titulo),
+    autor_de_nota(Slug, Titulo, Autor, Rol).
+
+% ------------------------------------------------------
+% Consulta 7:
+% ¿Qué autores tienen notas dentro de una materia?
+% Usa 2 reglas: notas_de_materia/4 y autor_de_nota/4.
+% ------------------------------------------------------
+autores_de_materia(Materia, Autor, Rol, Slug, Titulo, Tema) :-
+    notas_de_materia(Materia, Slug, Titulo, Tema),
+    autor_de_nota(Slug, Titulo, Autor, Rol).
+
+% ------------------------------------------------------
+% Consulta 8:
+% ¿Qué notas pertenecen a una materia y además tienen cierto tag?
+% Usa 2 reglas: notas_de_materia/4 y notas_con_tag/3.
+% ------------------------------------------------------
+notas_de_materia_con_tag(Materia, Tag, Slug, Titulo, Tema) :-
+    notas_de_materia(Materia, Slug, Titulo, Tema),
+    notas_con_tag(Tag, Slug, Titulo).
+</div>
+
+<div class="nb-cell query" name="q1">
+findall(Titulo, notas_de_materia('Inteligencia Artificial', Slug, Titulo, Tema), Lista).
+</div>
+
+<div class="nb-cell query" name="q2">
+findall(Slug,autor_de_nota(Slug, Titulo,'Bruno Ruiz', Rol), NotasBruno).
+</div>
+
+<div class="nb-cell query" name="q3">
+findall(Slug, notas_con_tag('neo4j', Slug, Titulo),NotasNeo4j).
+</div>
+
+<div class="nb-cell markdown" name="md1">
+lista de todas las notas que apuntan hacia “Backlinks estilo Obsidian”.
+</div>
+
+<div class="nb-cell query" name="q4">
+findall(
+   contexto,
+    backlinks_de(NotaOrigen,'Backlinks estilo Obsidian', TipoLink,contexto),
+    Lista
+).
+</div>
+
+<div class="nb-cell query" name="q5">
+findall(Autor,autores_con_tag('mongodb', Autor, Rol, Slug, Titulo), AutorTag).
+</div>
+
+<div class="nb-cell markdown" name="md2">
+Autores con Tag
+</div>
+
+<div class="nb-cell query" name="q6">
+findall(
+    fila(Autor, Rol, Slug, Titulo, Tag),
+    autores_con_tag('neo4j', Autor, Rol, Slug, Titulo),
+    AutorTag
+).
+</div>
+
+<div class="nb-cell markdown" name="md3">
+¿Qué autores tienen notas dentro de una materia?
+</div>
+
+<div class="nb-cell query" name="q7">
+findall(
+    fila(Autor, Rol, Slug, Titulo, Tema, 'Bases de Datos NoSQL'),
+    autores_de_materia('Bases de Datos NoSQL', Autor, Rol, Slug, Titulo, Tema),
+    Resultado
+).
+</div>
+
+<div class="nb-cell markdown" name="md4">
+notas de Bases de Datos NoSQL que tengan el tag neo4j
+</div>
+
+<div class="nb-cell query" name="q8">
+findall(
+    fila(Slug, Titulo, Tema, 'Bases de Datos NoSQL', 'neo4j'),
+    notas_de_materia_con_tag('Bases de Datos NoSQL', 'neo4j', Slug, Titulo, Tema),
+    Resultado
+).
+</div>
+
+</div>

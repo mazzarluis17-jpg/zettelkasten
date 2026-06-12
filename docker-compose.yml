@@ -1,0 +1,82 @@
+﻿services:
+  postgres:
+    image: postgres:16
+    container_name: zettel_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: zettelkasten
+      POSTGRES_USER: zettel_user
+      POSTGRES_PASSWORD: zettel_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/postgres:/docker-entrypoint-initdb.d:ro
+
+  mongo:
+    image: mongo:7
+    container_name: zettel_mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root_pass
+      MONGO_INITDB_DATABASE: zettelkasten
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo/init:/docker-entrypoint-initdb.d:ro
+
+  neo4j:
+    image: neo4j:5-community
+    container_name: zettel_neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/zettel_pass
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    container_name: zettel_clickhouse
+    restart: unless-stopped
+    environment:
+      CLICKHOUSE_DB: zettelkasten
+      CLICKHOUSE_USER: zettel_user
+      CLICKHOUSE_PASSWORD: zettel_pass
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./sql/clickhouse:/docker-entrypoint-initdb.d:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: zettel_metabase
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      MB_DB_FILE: /metabase-data/metabase.db
+    volumes:
+      - metabase_data:/metabase-data
+    depends_on:
+      - clickhouse
+
+volumes:
+  postgres_data:
+  mongo_data:
+  neo4j_data:
+  neo4j_logs:
+  clickhouse_data:
+  metabase_data:
