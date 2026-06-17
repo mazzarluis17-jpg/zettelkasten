@@ -63,14 +63,6 @@ The project compares database performance across:
 * Neo4j performs best for graph traversal.
 * ClickHouse dominates analytical workloads.
 
-## Repository Structure
-
-├── docker/
-├── scripts/
-├── docs/
-├── dashboards/
-└── README.md
-
 ## Author
 
 Luis Alfredo Ramírez Maza
